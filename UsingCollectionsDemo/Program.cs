@@ -38,15 +38,25 @@ namespace UsageCollections
             Console.WriteLine("\nAppuyez sur Entrée pour afficher la liste des étudiants...");
             Console.ReadLine();
 
+            double sommeMoyennes = 0;
             // Affichage des étudiants triés par NO
             Console.WriteLine("\nListe des étudiants :");
             foreach (DictionaryEntry entry in lstEtudiants)
             {
                 Etudiant etudiant = (Etudiant)entry.Value;
-                Console.WriteLine($"NO: {etudiant.NO}, Prénom: {etudiant.Prenom}, Nom: {etudiant.Nom}, NoteCC: {etudiant.NoteCC}, NoteDevoir: {etudiant.NoteDevoir}");
+                double moyenneEtudiant = Moyenne(etudiant.NoteCC, etudiant.NoteDevoir);
+                Console.WriteLine($"NO: {etudiant.NO}, Prénom: {etudiant.Prenom}, Nom: {etudiant.Nom}, NoteCC: {etudiant.NoteCC}, NoteDevoir: {etudiant.NoteDevoir}, Moyenne: {moyenneEtudiant}");
+                sommeMoyennes += moyenneEtudiant;
             }
+            double moyenneClasse = sommeMoyennes / nombreEtudiants;
+            Console.WriteLine($"\nMoyenne classe : {moyenneClasse}");
 
             Console.ReadLine();
+        }
+
+        static double Moyenne(double noteCC, double noteDS)
+        {
+            return (noteCC * 0.33) + (noteDS * 0.67);
         }
     }
 }
