@@ -7,41 +7,45 @@ namespace UsageCollections
     {
         static void Main(string[] args)
         {
-            SortedList lstEmployé = new SortedList();
-            lstEmployé.Add("372288Z", new Employé { Nom = "Fall ",
-                PréNom = "Racine ",
-                Matricule = "372288Z" });
-            Employé layssa = new Employé()
+            SortedList lstEtudiants = new SortedList();
+
+            Console.Write("Combien d'étudiants voulez-vous ajouter ? ");
+            int nombreEtudiants = int.Parse(Console.ReadLine());
+
+            for (int i = 0; i < nombreEtudiants; i++)
             {
-                Nom = "Diaw ",
-                PréNom= "Layssa ",
-                Matricule = "501603A"
-                };
-            Employé ngor = new Employé()
-                {
-                Nom = "Sène ",
-                PréNom = "Ngor ",
-                Matricule = "500125B"
-                };
-            lstEmployé.Add(layssa.Matricule, layssa);
-            lstEmployé.Add(ngor.Matricule, ngor);
+                Console.WriteLine($"\nSaisie de l'étudiant {i + 1}:");
 
-            Employé unEmployé = (Employé)lstEmployé["372288Z"];
+                Console.Write("Numéro d'ordre (NO) : ");
+                int no = int.Parse(Console.ReadLine());
 
-            if (unEmployé != null)
-            {
-                Console.WriteLine($"Matricule:{unEmployé.Matricule}, Prénom: {unEmployé.PréNom}, Nom: {unEmployé.Nom}, ");
+                Console.Write("Prénom : ");
+                string prenom = Console.ReadLine();
 
-                }
+                Console.Write("Nom : ");
+                string nom = Console.ReadLine();
 
-            Console.WriteLine(  "Appuyer sur Entrée pour afficher la liste des employés ");
+                Console.Write("Note de Contrôle Continu : ");
+                double noteCC = double.Parse(Console.ReadLine());
+
+                Console.Write("Note de Devoir : ");
+                double noteDevoir = double.Parse(Console.ReadLine());
+
+                // Ajout dans la liste triée
+                lstEtudiants.Add(no, new Etudiant { NO = no, Prenom = prenom, Nom = nom, NoteCC = noteCC, NoteDevoir = noteDevoir });
+            }
+
+            Console.WriteLine("\nAppuyez sur Entrée pour afficher la liste des étudiants...");
             Console.ReadLine();
 
-            foreach (DictionaryEntry employé in lstEmployé)
+            // Affichage des étudiants triés par NO
+            Console.WriteLine("\nListe des étudiants :");
+            foreach (DictionaryEntry entry in lstEtudiants)
             {
-                Employé autreEmployé = (Employé)employé.Value;
-                Console.WriteLine($"Matricule: {autreEmployé.Matricule}, PréNom: {autreEmployé.PréNom},Nom: {autreEmployé.Nom}");
+                Etudiant etudiant = (Etudiant)entry.Value;
+                Console.WriteLine($"NO: {etudiant.NO}, Prénom: {etudiant.Prenom}, Nom: {etudiant.Nom}, NoteCC: {etudiant.NoteCC}, NoteDevoir: {etudiant.NoteDevoir}");
             }
+
             Console.ReadLine();
         }
     }
